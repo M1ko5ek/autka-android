@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Autka_Android_v2"
