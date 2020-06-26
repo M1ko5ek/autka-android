@@ -46,8 +46,4 @@ public class MainActivity extends Activity implements SensorEventListener {
     public float update_x(){
         return x_sensor;
     }
-    public float update_y(){
-        return y_sensor;
-    }
-
 }

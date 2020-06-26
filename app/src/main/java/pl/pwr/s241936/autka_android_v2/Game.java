@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 
 import android.view.View;
 
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Game extends View   {
@@ -22,7 +23,7 @@ public class Game extends View   {
     private boolean out_of_map = false;
     private boolean game_over = false;
     private boolean start = false;
-    private int speed = 6;
+    private int speed = 5;
     private int points = 0;
 
 
@@ -67,11 +68,10 @@ public class Game extends View   {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawRect(0,0,width,hight,p);
-        canvas.drawRect(240,0,840,hight,p1);
+        canvas.drawRect(0,0,width,hight+100,p);
+        canvas.drawRect(240,0,840,hight+100,p1);
         canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+75, player.get_y_pos()+150,p3); // (pozycja x, pozycja y, szerokość, wysokość)
-        canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+75,  enemy1.get_y_pos()+150,p2);
-        canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+75, enemy2.get_y_pos()+150,p2);
+
 
         handler.postDelayed(runnable,speed);
 
@@ -79,23 +79,60 @@ public class Game extends View   {
         if(main.update_x() < -2.5 ){
 
             x=player.get_x_pos()+5;
-
-
         }
         if(main.update_x() > 2.5  ){
             x=player.get_x_pos()-5;
-
-
         }
-
-        enemy1.set_y_pos(enemy1.get_y_pos()+5);
-        enemy2.set_y_pos(enemy2.get_y_pos()+5);
-        canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+75,  enemy1.get_y_pos()+150,p2);
-        canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+75, enemy2.get_y_pos()+150,p2);
 
         player.set_x_pos(x);
         player.set_y_pos(y);
-
         canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+75, player.get_y_pos()+150,p3);
+
+
+        if(out_of_map == true) {
+            int x = ThreadLocalRandom.current().nextInt(240, 640 );
+            int y = ThreadLocalRandom.current().nextInt(665, 840-75 );
+            enemy1.set_x_pos(x);
+            enemy2.set_x_pos(y);
+        }
+
+        canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+75,  enemy1.get_y_pos()+150,p2);
+        canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+75, enemy2.get_y_pos()+150,p2);
+
+
+        enemy_movement(enemy1, enemy2);
+
+        if(points == 10)
+        {
+            speed = 2;
+        }
+
+    }
+    void enemy_movement(Car e1, Car e2)
+    {
+        Car enemy1 = e1;
+        Car enemy2 = e2;
+
+        if (out_of_map == false) {
+            int x = enemy1.get_y_pos();
+            int y = x + 5;
+            enemy1.set_y_pos(y);
+            enemy2.set_y_pos(y);
+
+            if (enemy1.get_y_pos() == hight+50) {
+                out_of_map = true;
+            }
+
+        } else if (out_of_map == true) {
+            enemy1.set_y_pos(0);
+            enemy2.set_y_pos(0);
+            points++;
+            if (speed > 3) {
+                speed--;
+            }
+            out_of_map = false;
+
+
+        }
     }
 }
