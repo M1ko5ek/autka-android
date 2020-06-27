@@ -5,9 +5,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.fonts.Font;
 import android.os.Handler;
 import android.util.AttributeSet;
 
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.Random;
@@ -25,7 +27,7 @@ public class Game extends View   {
     private boolean out_of_map = false;
     private boolean game_over = false;
     private boolean start = false;
-    private int speed = 5;
+    private int speed = 7;
     private int points = 0;
 
 
@@ -61,6 +63,7 @@ public class Game extends View   {
         p3.setColor(Color.BLUE);
         p4 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p4.setColor(Color.WHITE);
+        p4.setTextSize(64);
 
 
 
@@ -86,7 +89,7 @@ public class Game extends View   {
                 x=player.get_x_pos()-5;
             }
 
-            if(game_over==false)
+            if(start == true &&game_over==false)
             {
                 player.set_x_pos(x);
                 player.set_y_pos(y);
@@ -105,18 +108,27 @@ public class Game extends View   {
              canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+enemy1.get_car_width(), enemy1.get_y_pos()+enemy1.get_car_hight(),p2);
              canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+enemy2.get_car_width(), enemy2.get_y_pos()+enemy2.get_car_hight(),p2);
 
+        if (start == false) {
+            canvas.drawText("TAP TO START", 335, 1000, p4);
+        }
 
-            colision(enemy1);
+
+        colision(enemy1);
             colision(enemy2);
-            if(game_over==false){
+            if(start == true && game_over==false){
                 enemy_movement();
             }
 
+            if(game_over==true)
+            {
+                canvas.drawText("GAME OVER", 375, 1000, p4);
+                canvas.drawText("Points: " + points,425,1100,p4);
+            }
 
 
             if(points == 10)
             {
-                speed = 15;
+                speed = 20;
             }
 
 
@@ -140,7 +152,7 @@ public class Game extends View   {
             enemy1.set_y_pos(0);
             enemy2.set_y_pos(0);
             points++;
-            if (speed < 10) {
+            if (speed < 20) {
                 speed++;
             }
             out_of_map = false;
@@ -161,6 +173,12 @@ public class Game extends View   {
                 x_player + player.get_car_width() >= x_enemy && x_player <= x_enemy + e.get_car_width() && y_player + player.get_car_hight()>= y_enemy && y_player <= y_enemy + e.get_car_hight()) {
             game_over = true;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        start = true;
+        return true;
     }
 
 }
