@@ -10,7 +10,9 @@ import android.util.AttributeSet;
 
 import android.view.View;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
 
 public class Game extends View   {
@@ -28,7 +30,7 @@ public class Game extends View   {
 
 
     private MainActivity main = new MainActivity();
-    private Car player = new Car(width/2,hight-(hight/5));;
+    private Car player = new Car(width/2,hight-(hight/5));
     private Car enemy1 = new Car(340,0);   // x1 y1
     private Car enemy2 = new Car(740,0);
 
@@ -94,10 +96,10 @@ public class Game extends View   {
 
 
             if(out_of_map == true) {
-                int x = ThreadLocalRandom.current().nextInt(240, 540-75 );
-                int y = ThreadLocalRandom.current().nextInt(540, 840-75 );
-                enemy1.set_x_pos(x);
-                enemy2.set_x_pos(y);
+                 int random1 = new Random().nextInt(225) + 240;
+                 int random2 = new Random().nextInt(225) + 540;
+                enemy1.set_x_pos(random1);
+                enemy2.set_x_pos(random2);
             }
 
              canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+enemy1.get_car_width(), enemy1.get_y_pos()+enemy1.get_car_hight(),p2);
@@ -107,7 +109,7 @@ public class Game extends View   {
             colision(enemy1);
             colision(enemy2);
             if(game_over==false){
-                enemy_movement(enemy1, enemy2);
+                enemy_movement();
             }
 
 
@@ -120,10 +122,9 @@ public class Game extends View   {
 
 
     }
-    void enemy_movement(Car e1, Car e2)
+    void enemy_movement()
     {
-        Car enemy1 = e1;
-        Car enemy2 = e2;
+
 
         if (out_of_map == false) {
             int x = enemy1.get_y_pos();
@@ -149,16 +150,15 @@ public class Game extends View   {
     }
 
     void colision(Car e) {
-        Car enemy = e;
 
         int x_player = player.get_x_pos();
         int y_player = player.get_y_pos();
-        int x_enemy = enemy.get_x_pos();
-        int y_enemy = enemy.get_y_pos();
+        int x_enemy = e.get_x_pos();
+        int y_enemy = e.get_y_pos();
 
 
-        if (x_player >= x_enemy && x_player <= x_enemy + enemy.get_car_width() && y_player >= y_enemy && y_player <= y_enemy + enemy.get_car_hight() ||
-                x_player + player.get_car_width() >= x_enemy && x_player <= x_enemy + enemy.get_car_width() && y_player + player.get_car_hight()>= y_enemy && y_player <= y_enemy + enemy.get_car_hight()) {
+        if (x_player >= x_enemy && x_player <= x_enemy + e.get_car_width() && y_player >= y_enemy && y_player <= y_enemy + e.get_car_hight() ||
+                x_player + player.get_car_width() >= x_enemy && x_player <= x_enemy + e.get_car_width() && y_player + player.get_car_hight()>= y_enemy && y_player <= y_enemy + e.get_car_hight()) {
             game_over = true;
         }
     }
