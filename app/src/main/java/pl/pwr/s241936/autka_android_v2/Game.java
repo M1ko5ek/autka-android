@@ -23,7 +23,7 @@ public class Game extends View   {
     private boolean out_of_map = false;
     private boolean game_over = false;
     private boolean start = false;
-    private int speed = 5;
+    private int speed = 4;
     private int points = 0;
 
 
@@ -73,14 +73,14 @@ public class Game extends View   {
         canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+75, player.get_y_pos()+150,p3); // (pozycja x, pozycja y, szerokość, wysokość)
 
 
-        handler.postDelayed(runnable,speed);
+        handler.postDelayed(runnable, 1);
 
 
-        if(main.update_x() < -2.5 ){
+        if(main.update_x() < -2.5 && player.get_x_pos() < 840-75){
 
             x=player.get_x_pos()+5;
         }
-        if(main.update_x() > 2.5  ){
+        if(main.update_x() > 2.5 && player.get_x_pos() > 240  ){
             x=player.get_x_pos()-5;
         }
 
@@ -90,8 +90,8 @@ public class Game extends View   {
 
 
         if(out_of_map == true) {
-            int x = ThreadLocalRandom.current().nextInt(240, 640 );
-            int y = ThreadLocalRandom.current().nextInt(665, 840-75 );
+            int x = ThreadLocalRandom.current().nextInt(240, 540-75 );
+            int y = ThreadLocalRandom.current().nextInt(540, 840-75 );
             enemy1.set_x_pos(x);
             enemy2.set_x_pos(y);
         }
@@ -104,7 +104,7 @@ public class Game extends View   {
 
         if(points == 10)
         {
-            speed = 2;
+            speed = 15;
         }
 
     }
@@ -115,11 +115,11 @@ public class Game extends View   {
 
         if (out_of_map == false) {
             int x = enemy1.get_y_pos();
-            int y = x + 5;
+            int y = x + speed;
             enemy1.set_y_pos(y);
             enemy2.set_y_pos(y);
 
-            if (enemy1.get_y_pos() == hight+50) {
+            if (enemy1.get_y_pos() >= hight+50) {
                 out_of_map = true;
             }
 
@@ -127,8 +127,8 @@ public class Game extends View   {
             enemy1.set_y_pos(0);
             enemy2.set_y_pos(0);
             points++;
-            if (speed > 3) {
-                speed--;
+            if (speed < 10) {
+                speed++;
             }
             out_of_map = false;
 
