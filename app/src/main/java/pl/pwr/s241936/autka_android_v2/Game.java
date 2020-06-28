@@ -25,11 +25,11 @@ public class Game extends View   {
     private int width = 1080;
     private int hight = 1920;
     private boolean out_of_map = false;
+    private boolean out_of_map2 = false;
     private boolean game_over = false;
     private boolean start = false;
     private int speed = 7;
     private int points = 0;
-    private boolean half = false;
 
     private MainActivity main = new MainActivity();
     private Car player = new Car(width/2,hight-(hight/5));
@@ -118,8 +118,15 @@ public class Game extends View   {
             colision(enemy1);
             colision(enemy2);
             colision(enemy3);
+
             if(start == true && game_over==false){
                 enemy_movement();
+            }
+
+           add_points();
+            if(points == 10)
+            {
+                speed = 20;
             }
 
 
@@ -129,41 +136,41 @@ public class Game extends View   {
                 canvas.drawText("Points: " + points,425,1100,p4);
             }
 
-
-            if(points == 10)
-            {
-                speed = 20;
-            }
-
-
-
     }
+
     void enemy_movement()
     {
         if (out_of_map == false) {
-            int x = enemy1.get_y_pos();
-            int y = x + speed;
-            enemy1.set_y_pos(y);
-            enemy2.set_y_pos(y);
-            enemy3.set_y_pos(enemy3.get_y_pos()+speed);
-            if (enemy1.get_y_pos() >= hight+hight/2) {
+
+            enemy1.set_y_pos(enemy1.get_y_pos()+speed);
+            enemy2.set_y_pos(enemy2.get_y_pos()+speed);
+            if (enemy1.get_y_pos() >= hight) {
                 out_of_map = true;
             }
 
         } else if (out_of_map == true) {
             enemy1.set_y_pos(0);
             enemy2.set_y_pos(0);
-            enemy3.set_x_pos(player.get_x_pos());
-            enemy3.set_y_pos(-hight/2);
-            points++;
+
             if (speed < 20) {
                 speed++;
             }
             out_of_map = false;
         }
+
+        if(out_of_map2 == false)
+        {
+            enemy3.set_y_pos(enemy3.get_y_pos()+speed);
+            if (enemy3.get_y_pos() >= hight) {
+                out_of_map2 = true;
+            }
+        } else if (out_of_map2 == true)
+        {
+            enemy3.set_x_pos(player.get_x_pos());
+            enemy3.set_y_pos(0);
+            out_of_map2 = false;
+        }
     }
-
-
 
     void colision(Car e) {
 
@@ -176,6 +183,17 @@ public class Game extends View   {
         if (x_player >= x_enemy && x_player <= x_enemy + e.get_car_width() && y_player >= y_enemy && y_player <= y_enemy + e.get_car_hight() ||
                 x_player + player.get_car_width() >= x_enemy && x_player <= x_enemy + e.get_car_width() && y_player + player.get_car_hight()>= y_enemy && y_player <= y_enemy + e.get_car_hight()) {
             game_over = true;
+        }
+    }
+
+   void add_points()
+    {
+        if(out_of_map == true) {
+            points++;
+        }
+        if(out_of_map2 == true)
+        {
+            points++;
         }
     }
 
