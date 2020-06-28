@@ -5,16 +5,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.fonts.Font;
 import android.os.Handler;
 import android.util.AttributeSet;
-
 import android.view.MotionEvent;
 import android.view.View;
-
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
 
 
 public class Game extends View   {
@@ -77,69 +72,68 @@ public class Game extends View   {
         canvas.drawRect(240,0,840,hight+100,p1);
         canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+player.get_car_width(), player.get_y_pos()+player.get_car_hight(),p3);
 
-
-            handler.postDelayed(runnable, 1);
-
-
-            if(main.update_x() < -2.5 && player.get_x_pos() < 840-75){
-
-                x=player.get_x_pos()+5;
-            }
-            if(main.update_x() > 2.5 && player.get_x_pos() > 240  ){
-                x=player.get_x_pos()-5;
-            }
-
-            if(start == true &&game_over==false)
-            {
-                player.set_x_pos(x);
-                player.set_y_pos(y);
-                canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+player.get_car_width(), player.get_y_pos()+player.get_car_hight(),p3);
-            }
-
-
-
-            if(out_of_map == true) {
-                 int random1 = new Random().nextInt(225) + 240;
-                 int random2 = new Random().nextInt(225) + 540;
-                enemy1.set_x_pos(random1);
-                enemy2.set_x_pos(random2);
-            }
-
-             canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+enemy1.get_car_width(), enemy1.get_y_pos()+enemy1.get_car_hight(),p2);
-             canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+enemy2.get_car_width(), enemy2.get_y_pos()+enemy2.get_car_hight(),p2);
-             canvas.drawRect(enemy3.get_x_pos(), enemy3.get_y_pos(), enemy3.get_x_pos()+enemy3.get_car_width(), enemy3.get_y_pos()+enemy3.get_car_hight(),p2);
-
+        handler.postDelayed(runnable, 1);
 
         if (start == false) {
             canvas.drawText("TAP TO START", 335, 1000, p4);
         }
 
 
-            colision(enemy1);
-            colision(enemy2);
-            colision(enemy3);
+        if(start == true && game_over == false)
+        {
+            player.set_x_pos(x);
+            player.set_y_pos(y);
+            canvas.drawRect(player.get_x_pos(), player.get_y_pos(), player.get_x_pos()+player.get_car_width(), player.get_y_pos()+player.get_car_hight(),p3);
+        }
 
-            if(start == true && game_over==false){
-                enemy_movement();
-            }
+        control();
 
-           add_points();
-            if(points == 10)
-            {
-                speed = 20;
-            }
+        canvas.drawRect(enemy1.get_x_pos(), enemy1.get_y_pos(), enemy1.get_x_pos()+enemy1.get_car_width(), enemy1.get_y_pos()+enemy1.get_car_hight(),p2);
+        canvas.drawRect(enemy2.get_x_pos(), enemy2.get_y_pos(), enemy2.get_x_pos()+enemy2.get_car_width(), enemy2.get_y_pos()+enemy2.get_car_hight(),p2);
+        canvas.drawRect(enemy3.get_x_pos(), enemy3.get_y_pos(), enemy3.get_x_pos()+enemy3.get_car_width(), enemy3.get_y_pos()+enemy3.get_car_hight(),p2);
 
+        colision(enemy1);
+        colision(enemy2);
+        colision(enemy3);
 
-            if(game_over==true)
-            {
-                canvas.drawText("GAME OVER", 375, 1000, p4);
-                canvas.drawText("Points: " + points,425,1100,p4);
-            }
+        if(start == true && game_over==false)
+        {
+            enemy_movement();
+        }
 
+        add_points();
+
+        if(points == 10)
+        {
+            speed = 20;
+        }
+
+        if(game_over==true)
+        {
+            canvas.drawText("GAME OVER", 375, 1000, p4);
+            canvas.drawText("Points: " + points,425,1100,p4);
+        }
     }
 
+    void control()
+    {
+        if(main.update_x() < -2.5 && player.get_x_pos() < 840-75){
+
+            x=player.get_x_pos()+5;
+        }
+        if(main.update_x() > 2.5 && player.get_x_pos() > 240  ){
+            x=player.get_x_pos()-5;
+        }
+    }
     void enemy_movement()
     {
+        if(out_of_map == true) {
+            int random1 = new Random().nextInt(225) + 240;
+            int random2 = new Random().nextInt(225) + 540;
+            enemy1.set_x_pos(random1);
+            enemy2.set_x_pos(random2);
+        }
+
         if (out_of_map == false) {
 
             enemy1.set_y_pos(enemy1.get_y_pos()+speed);
@@ -202,5 +196,4 @@ public class Game extends View   {
         start = true;
         return true;
     }
-
 }
