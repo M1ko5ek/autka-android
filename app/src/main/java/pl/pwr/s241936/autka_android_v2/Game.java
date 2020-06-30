@@ -26,7 +26,7 @@ public class Game extends View   {
     private int speed = 7;
     private int points = 0;
 
-    private MainActivity main = new MainActivity();
+    private MainActivity2 main = new MainActivity2();
     private Car player = new Car(width/2,hight-(hight/5));
     private Car enemy1 = new Car(340,0);   // x1 y1
     private Car enemy2 = new Car(650,0);
