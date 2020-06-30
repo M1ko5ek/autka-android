@@ -8,11 +8,11 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+
 
 import java.util.Random;
 
-public class Game_buttons extends View {
+public class Game_tap extends View {
     Runnable runnable;
     Handler handler;
     private Paint p, p1, p2,p3,p4;
@@ -27,7 +27,6 @@ public class Game_buttons extends View {
     private int click_x;
     private boolean click = false;
 
-
     private Car player = new Car(width/2,hight-(hight/5));
     private Car enemy1 = new Car(340,0);   // x1 y1
     private Car enemy2 = new Car(650,0);
@@ -36,9 +35,7 @@ public class Game_buttons extends View {
     int y = player.get_y_pos();
 
 
-
-
-    public Game_buttons(Context context, AttributeSet attrs) {
+    public Game_tap(Context context, AttributeSet attrs) {
         super(context, attrs);
         handler = new android.os.Handler();
         runnable = new Runnable() {
@@ -47,7 +44,6 @@ public class Game_buttons extends View {
                 invalidate();
             }
         };
-
 
         p = new Paint(Paint.ANTI_ALIAS_FLAG);
         p.setColor(Color.GREEN);
@@ -60,9 +56,6 @@ public class Game_buttons extends View {
         p4 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p4.setColor(Color.WHITE);
         p4.setTextSize(64);
-
-
-
     }
 
     @Override
@@ -130,6 +123,7 @@ public class Game_buttons extends View {
         }
 
     }
+
     void enemy_movement()
     {
         if(out_of_map == true) {

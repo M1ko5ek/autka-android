@@ -1,6 +1,5 @@
 package pl.pwr.s241936.autka_android_v2;
 
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,7 +11,7 @@ import android.view.View;
 import java.util.Random;
 
 
-public class Game extends View   {
+public class Game_sensor extends View   {
 
     Runnable runnable;
     Handler handler;
@@ -35,9 +34,7 @@ public class Game extends View   {
     int y = player.get_y_pos();
 
 
-
-
-    public Game(Context context, AttributeSet attrs) {
+    public Game_sensor(Context context, AttributeSet attrs) {
         super(context, attrs);
         handler = new android.os.Handler();
         runnable = new Runnable() {
@@ -46,7 +43,6 @@ public class Game extends View   {
                 invalidate();
             }
         };
-
 
         p = new Paint(Paint.ANTI_ALIAS_FLAG);
         p.setColor(Color.GREEN);
@@ -59,9 +55,6 @@ public class Game extends View   {
         p4 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p4.setColor(Color.WHITE);
         p4.setTextSize(64);
-
-
-
     }
 
     @Override
@@ -125,6 +118,7 @@ public class Game extends View   {
             x=player.get_x_pos()-5;
         }
     }
+
     void enemy_movement()
     {
         if(out_of_map == true) {

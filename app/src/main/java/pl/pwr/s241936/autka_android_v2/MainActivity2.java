@@ -1,10 +1,6 @@
 package pl.pwr.s241936.autka_android_v2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
