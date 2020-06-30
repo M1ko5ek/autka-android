@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import java.util.Random;
 
-
 public class Game_sensor extends View   {
 
     Runnable runnable;
@@ -33,7 +32,6 @@ public class Game_sensor extends View   {
     int x = player.get_x_pos();
     int y = player.get_y_pos();
 
-
     public Game_sensor(Context context, AttributeSet attrs) {
         super(context, attrs);
         handler = new android.os.Handler();
@@ -55,6 +53,7 @@ public class Game_sensor extends View   {
         p4 = new Paint(Paint.ANTI_ALIAS_FLAG);
         p4.setColor(Color.WHITE);
         p4.setTextSize(64);
+
     }
 
     @Override
@@ -70,7 +69,6 @@ public class Game_sensor extends View   {
         if (start == false) {
             canvas.drawText("TAP TO START", 335, 1000, p4);
         }
-
 
         if(start == true && game_over == false)
         {

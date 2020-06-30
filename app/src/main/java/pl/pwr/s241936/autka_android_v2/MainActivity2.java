@@ -15,6 +15,7 @@ public class MainActivity2 extends Activity implements SensorEventListener {
     static float y_sensor;
     static float z_sensor;
 
+
     @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

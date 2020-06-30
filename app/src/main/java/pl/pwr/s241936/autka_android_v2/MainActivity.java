@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button b1 = (Button) findViewById(R.id.button);
-        b1.setOnClickListener(new View.OnClickListener() {
+        Button b = (Button) findViewById(R.id.button);
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openSecond_activity();
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 openThird_activity();
             }
         });
+
     }
+
     public void openSecond_activity(){
         Intent intent = new Intent(this,MainActivity2.class);
         startActivity(intent);

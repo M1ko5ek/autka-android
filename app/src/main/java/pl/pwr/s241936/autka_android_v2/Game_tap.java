@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-
 import java.util.Random;
 
 public class Game_tap extends View {
@@ -121,7 +119,6 @@ public class Game_tap extends View {
             x=player.get_x_pos()+10;
             click = false;
         }
-
     }
 
     void enemy_movement()
