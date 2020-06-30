@@ -1,6 +1,7 @@
 package pl.pwr.s241936.autka_android_v2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,6 +10,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.Random;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Game_sensor extends View   {
 
@@ -23,7 +26,8 @@ public class Game_sensor extends View   {
     private boolean start = false;
     private int speed = 7;
     private int points = 0;
-
+    private int loaded_points;
+    public static final String SHARED_PREFS = "sharedPrefs";
     private MainActivity2 main = new MainActivity2();
     private Car player = new Car(width/2,hight-(hight/5));
     private Car enemy1 = new Car(340,0);   // x1 y1
@@ -103,7 +107,27 @@ public class Game_sensor extends View   {
         {
             canvas.drawText("GAME OVER", 375, 1000, p4);
             canvas.drawText("Points: " + points,425,1100,p4);
+            load_data(getContext());
+            if(loaded_points < points)
+            {
+                send_data(getContext());
+            }
+
         }
+    }
+
+    void send_data(Context context)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("POINTS", points);
+        editor.apply();
+    }
+
+    void load_data(Context context)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
+        loaded_points = sharedPreferences.getInt("POINTS",0);
     }
 
     void control()
