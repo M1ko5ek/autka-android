@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.Random;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class Game_tap extends View {
@@ -116,6 +115,7 @@ public class Game_tap extends View {
             }
         }
     }
+
     void send_data(Context context)
     {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
@@ -129,6 +129,7 @@ public class Game_tap extends View {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
         loaded_points = sharedPreferences.getInt("POINTS",0);
     }
+
     void control()
     {
       if(click_x < width/2 && click == true && player.get_x_pos() > 240)

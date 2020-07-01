@@ -1,14 +1,12 @@
 package pl.pwr.s241936.autka_android_v2;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
-
 import static pl.pwr.s241936.autka_android_v2.Game_sensor.SHARED_PREFS;
 
 
@@ -27,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                text.setText("");
                 openSecond_activity();
             }
         });
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                text.setText("");
                 openThird_activity();
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
                 best_score = sharedPreferences.getInt("POINTS",0);
-                text.setText("Best Score: " + String.valueOf(best_score));
+                text.setText(" Best Score: " + String.valueOf(best_score) + " points");
             }
         });
 

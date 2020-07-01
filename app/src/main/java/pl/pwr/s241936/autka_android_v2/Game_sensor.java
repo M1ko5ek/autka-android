@@ -10,8 +10,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import java.util.Random;
-
 import static android.content.Context.MODE_PRIVATE;
+
 
 public class Game_sensor extends View   {
 
@@ -108,6 +108,7 @@ public class Game_sensor extends View   {
             canvas.drawText("GAME OVER", 375, 1000, p4);
             canvas.drawText("Points: " + points,425,1100,p4);
             load_data(getContext());
+
             if(loaded_points < points)
             {
                 send_data(getContext());
