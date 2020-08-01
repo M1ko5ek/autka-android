@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
                 best_score = sharedPreferences.getInt("POINTS",0);
-                text.setText(" Best Score: " + String.valueOf(best_score) + " points");
+                text.setText("  Your Best Score is " + String.valueOf(best_score) + " points");
             }
         });
 
