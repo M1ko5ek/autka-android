@@ -2,6 +2,7 @@ package pl.pwr.s241936.autka_android_v2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,8 +17,8 @@ public class Game_tap extends View {
     Runnable runnable;
     Handler handler;
     private Paint p, p1, p2,p3,p4;
-    private int width = 1080;
-    private int hight = 1920;
+    private int width = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int hight = Resources.getSystem().getDisplayMetrics().heightPixels;
     private boolean out_of_map = false;
     private boolean out_of_map2 = false;
     private boolean game_over = false;
